@@ -354,7 +354,6 @@ export function drawAsymptotes(group, compiledExpr, domain, viewState) {
  * @param {Object} viewState - Khung nhìn
  */
 export function drawGraphCurve(group, compiledExpr, domain, viewState, color = '#2563eb') {
-    group.innerHTML = '';
     const { start, end } = domain;
     const step = 0.02;
 
