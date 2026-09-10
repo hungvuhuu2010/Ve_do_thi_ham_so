@@ -1,0 +1,454 @@
+/* --- Reset & Biến chung --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success-color: #16a34a;
+    --warning-color: #ca8a04;
+    --danger-color: #dc2626;
+    --bg-color: #f8fafc;
+    --panel-bg: #ffffff;
+    --border-color: #cbd5e1;
+    --text-color: #1e293b;
+    --text-light: #64748b;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    height: 100dvh; /* Hỗ trợ chuẩn di động hiện đại */
+    overflow: hidden;
+}
+
+/* --- Bố cục tổng thể --- */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.app-header {
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+.app-header h1 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.app-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- Bảng điều khiển (Trái trên Desktop, Trên cùng trên Mobile) --- */
+.control-panel {
+    width: 360px;
+    background-color: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.02);
+    z-index: 5;
+}
+
+.panel-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.panel-section h3 {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.expression-wrapper {
+    display: flex;
+    align-items: center;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0 10px;
+}
+
+.expression-wrapper span {
+    font-weight: bold;
+    color: var(--text-light);
+    margin-right: 6px;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fff;
+}
+
+.expression-wrapper input[type="text"] {
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.hint {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    line-height: 1.3;
+}
+
+/* --- Nút bấm tối ưu chạm --- */
+.btn {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s, transform 0.1s;
+    min-height: 40px; /* Đảm bảo dễ bấm trên điện thoại */
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #15803d;
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #a16207;
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.animation-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.animation-controls button {
+    flex: 1;
+}
+
+.zoom-pan-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.zoom-pan-controls button {
+    flex: 1;
+}
+
+.btn-icon {
+    background-color: #e2e8f0;
+    color: var(--text-color);
+    padding: 8px;
+}
+
+.btn-icon:hover {
+    background-color: #cbd5e1;
+}
+
+/* --- Thông báo lỗi --- */
+.error-banner {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: var(--danger-color);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* --- Khu vực mặt phẳng tọa độ (Phải) --- */
+.graph-viewport {
+    flex: 1;
+    position: relative;
+    background-color: #ffffff;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.graph-viewport:active {
+    cursor: grabbing;
+}
+
+#coordinate-system {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.cursor-coords {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: monospace;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN CHO ĐIỆN THOẠI & TABLET
+   ================================---------- */
+@media screen and (max-width: 768px) {
+    .app-main {
+        flex-direction: column; /* Xếp chồng bảng điều khiển lên trên, đồ thị ở dưới */
+    }
+
+    .control-panel {
+        width: 100%;
+        max-height: 42vh; /* Giới hạn chiều cao bảng điều khiển để không che mất màn hình vẽ */
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .app-header h1 {
+        font-size: 1rem;
+    }
+
+    .panel-section h3 {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        min-height: 38px;
+    }
+
+    .cursor-coords {
+        bottom: 6px;
+        right: 6px;
+        font-size: 0.7rem;
+        padding: 3px 6px;
+    }
+}
+
+/* --- Thẻ hàm số đa dạng --- */
+#function-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.function-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.btn-remove-card {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-remove-card:hover {
+    opacity: 0.7;
+}
+
+/* --- Giao diện Tabs hàm số --- */
+.tab-header-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    overflow-x: auto;
+}
+
+.tabs-list {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+}
+
+.function-tab {
+    padding: 6px 12px;
+    background: #e2e8f0;
+    border-radius: 6px 6px 0 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    border-top: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.function-tab.active {
+    background: var(--panel-bg);
+    color: var(--primary-color);
+    border-top-color: var(--primary-color);
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.03);
+}
+
+.btn-add-tab {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.btn-add-tab:hover {
+    background: var(--primary-hover);
+}
+
+/* Khung card bên dưới giống mẫu ảnh */
+.function-card-box {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.tab-action-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 10px;
+}
+
+.tab-anim-controls {
+    display: flex;
+    gap: 8px;
+}
