@@ -190,7 +190,7 @@ export function drawAxes(group, viewState, unitMode) {
     labelX.setAttribute('x', width - 15);
     labelX.setAttribute('y', origin.y - 10);
     labelX.setAttribute('fill', '#475569');
-    labelX.setAttribute('font-size', '14');
+    labelX.setAttribute('font-size', '20');
     labelX.setAttribute('font-weight', 'bold');
     labelX.textContent = 'x';
     group.appendChild(labelX);
@@ -200,7 +200,7 @@ export function drawAxes(group, viewState, unitMode) {
     labelY.setAttribute('x', origin.x + 10);
     labelY.setAttribute('y', 20);
     labelY.setAttribute('fill', '#475569');
-    labelY.setAttribute('font-size', '14');
+    labelY.setAttribute('font-size', '20');
     labelY.setAttribute('font-weight', 'bold');
     labelY.textContent = 'y';
     group.appendChild(labelY);
@@ -238,7 +238,7 @@ export function drawAxes(group, viewState, unitMode) {
                 text.setAttribute('x', pixelX);
                 text.setAttribute('y', origin.y + 20);
                 text.setAttribute('fill', '#64748b');
-                text.setAttribute('font-size', '12');
+                text.setAttribute('font-size', '16');
                 text.setAttribute('text-anchor', 'middle');
                 text.textContent = Math.round(mathX);
                 group.appendChild(text);
@@ -254,7 +254,7 @@ export function drawAxes(group, viewState, unitMode) {
                         text.setAttribute('x', pixelX);
                         text.setAttribute('y', origin.y + 20);
                         text.setAttribute('fill', '#64748b');
-                        text.setAttribute('font-size', '12');
+                        text.setAttribute('font-size', '20');
                         text.setAttribute('text-anchor', 'middle');
                         const val = stepK / 4;
                         text.textContent = val === 1 ? 'π' : val === -1 ? '-π' : `${val}π`;
@@ -275,7 +275,7 @@ export function drawAxes(group, viewState, unitMode) {
                         textTop.setAttribute('x', '0');
                         textTop.setAttribute('y', '-3');
                         textTop.setAttribute('fill', '#64748b');
-                        textTop.setAttribute('font-size', '10');
+                        textTop.setAttribute('font-size', '16');
                         textTop.setAttribute('text-anchor', 'middle');
                         textTop.textContent = Math.abs(num) === 1 ? (num < 0 ? '-π' : 'π') : `${num}π`;
 
@@ -293,7 +293,7 @@ export function drawAxes(group, viewState, unitMode) {
                         textBottom.setAttribute('x', '0');
                         textBottom.setAttribute('y', '10');
                         textBottom.setAttribute('fill', '#64748b');
-                        textBottom.setAttribute('font-size', '10');
+                        textBottom.setAttribute('font-size', '16');
                         textBottom.setAttribute('text-anchor', 'middle');
                         textBottom.textContent = `${den}`;
 
