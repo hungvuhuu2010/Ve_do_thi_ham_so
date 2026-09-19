@@ -8,7 +8,6 @@
     <!-- Font Awesome cho các icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="module" src="script.js"></script>
-
 </head>
 <body>
     <div class="app-container">
@@ -22,44 +21,44 @@
             <!-- KHU VỰC BÊN TRÁI: BẢNG ĐIỀU KHIỂN -->
             <aside class="control-panel">
                 <div class="panel-section">
-    <h3><i class="fa-solid fa-sliders"></i> Thiết lập hàm số</h3>
-    
-    <!-- Thanh Tab chứa các hàm số và nút (+) -->
-    <div class="tab-header-container" id="tab-header-container">
-        <div class="tabs-list" id="tabs-list">
-            <!-- Các tab sẽ được sinh tự động bằng JS -->
-        </div>
-        <button id="btn-add-tab" class="btn-add-tab" title="Thêm hàm số mới">
-            <i class="fa-solid fa-plus"></i>
-        </button>
-    </div>
+                    <h3><i class="fa-solid fa-sliders"></i> Thiết lập hàm số</h3>
+                    
+                    <!-- Thanh Tab chứa các hàm số và nút (+) -->
+                    <div class="tab-header-container" id="tab-header-container">
+                        <div class="tabs-list" id="tabs-list">
+                            <!-- Các tab sẽ được sinh tự động bằng JS -->
+                        </div>
+                        <button id="btn-add-tab" class="btn-add-tab" title="Thêm hàm số mới">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
 
-    <!-- Khung chứa nội dung của Tab đang chọn (Active Card) -->
-    <div id="function-cards-container">
-        <!-- Nội dung card sẽ được render động theo tab active -->
-    </div>
-</div>
+                    <!-- Khung chứa nội dung của Tab đang chọn (Active Card) -->
+                    <div id="function-cards-container">
+                        <!-- Nội dung card sẽ được render động theo tab active -->
+                    </div>
+                </div>
 
-<div class="panel-section">
-    <div class="input-group">
-        <label for="ox-unit-select">Đơn vị trục Ox:</label>
-        <select id="ox-unit-select">
-            <option value="1">Số nguyên (1, 2, 3...)</option>
-            <option value="pi">π</option>
-            <option value="pi/2">π/2</option>
-            <option value="pi/4" selected>π/4</option>
-        </select>
-    </div>
-</div>
+                <div class="panel-section">
+                    <div class="input-group">
+                        <label for="ox-unit-select">Đơn vị trục Ox:</label>
+                        <select id="ox-unit-select">
+                            <option value="1">Số nguyên (1, 2, 3...)</option>
+                            <option value="pi">π</option>
+                            <option value="pi/2">π/2</option>
+                            <option value="pi/4" selected>π/4</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="panel-section action-buttons">
-    <button id="btn-draw-all" class="btn btn-primary">
-        <i class="fa-solid fa-play"></i> Vẽ tất cả đồ thị
-    </button>
-    <button id="btn-export" class="btn btn-success">
-        <i class="fa-solid fa-download"></i> Xuất PNG
-    </button>
-</div>
+                    <button id="btn-draw-all" class="btn btn-primary">
+                        <i class="fa-solid fa-play"></i> Vẽ tất cả đồ thị
+                    </button>
+                    <button id="btn-export" class="btn btn-success">
+                        <i class="fa-solid fa-copy"></i> Copy ảnh mặt phẳng
+                    </button>
+                </div>
 
                 <div class="panel-section">
                     <h3><i class="fa-solid fa-magnifying-glass"></i> Điều khiển hiển thị</h3>

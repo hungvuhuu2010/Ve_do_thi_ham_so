@@ -5,7 +5,7 @@
 import { parseExpression, validateExpression } from './js/parser.js';
 import { createCoordinateSystem, drawGrid, drawAxes, drawAsymptotes, drawGraphCurve } from './js/renderer.js';
 import { GraphAnimator } from './js/animation.js';
-import { ViewportInteractions, exportToPNG } from './js/interactions.js';
+import { ViewportInteractions, copyViewportToClipboard } from './js/interactions.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const svgElement = document.getElementById('coordinate-system');
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tabsList.appendChild(tab);
         });
 
-        // 2. Render khung nhập liệu của Tab đang active (Giống ảnh mẫu)
+        // 2. Render khung nhập liệu của Tab đang active
         const activeFn = functionsData[activeTabIndex];
         cardsContainer.innerHTML = `
             <div class="function-card-box" style="border-left: 4px solid ${activeFn.color};">
@@ -173,8 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateScene();
 
     // Hàm vẽ riêng cho 1 hàm số (Active Tab)
-    // Hàm vẽ riêng cho 1 hàm số (Active Tab) nhưng KHÔNG xóa các đồ thị khác
-    // Hàm vẽ riêng cho 1 hàm số (Active Tab) và vẽ chồng thêm (appendMode = true)
     function drawSingleFunction(index) {
         hideError();
         const fn = functionsData[index];
@@ -202,19 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const compiledExpr = parseExpression(fn.expr);
             
-            // Vẽ lại lưới và trục tọa độ (giữ nguyên khung nhìn)
             drawGrid(svgGroups.gridGroup, viewState, unitMode);
             drawAxes(svgGroups.axesGroup, viewState, unitMode);
-
-            // Vẽ thêm tiệm cận cho hàm này (vẫn giữ các tiệm cận cũ)
             drawAsymptotes(svgGroups.asymptoteGroup, compiledExpr, { start, end }, viewState);
 
-            // Hiển thị cụm nút điều khiển animation của tab
             document.getElementById('tab-anim-controls').style.display = 'flex';
 
-            // Gọi animator với tham số true (appendMode) để vẽ chồng thêm mà không xóa các đồ thị khác
             animator.start([{ compiledExpr, start, end, color: fn.color }], viewState, () => {
-                // Hoàn thành animation riêng của tab này
+                // Hoàn thành animation
             });
 
         } catch (err) {
@@ -255,7 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
         animator.start(listToDraw, viewState, () => {});
     });
 
-    btnExport.addEventListener('click', () => exportToPNG(svgElement, 'do-thi-luong-giac.png'));
+    // CÁC SỰ KIỆN GẮN CHO NÚT ĐIỀU KHIỂN CHUNG (ĐẶT ĐÚNG VỊ TRÍ Ở CUỐI)
+    btnExport.addEventListener('click', () => copyViewportToClipboard(svgElement));
     btnZoomIn.addEventListener('click', () => viewport.zoomAt(1.2));
     btnZoomOut.addEventListener('click', () => viewport.zoomAt(0.8));
     btnResetView.addEventListener('click', () => viewport.reset(60));
