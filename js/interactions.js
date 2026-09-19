@@ -185,3 +185,95 @@ export function exportToPNG(svgElement, filename = 'do-thi-luong-giac.png') {
 
     image.src = blobURL;
 }
+
+/**
+ * Sao chép khung hình mặt phẳng tọa độ (SVG viewport) hiện tại vào Clipboard dưới dạng ảnh PNG (200 PPI).
+ * @param {SVGElement} svgElement - Thẻ SVG chứa mặt phẳng tọa độ
+ */
+export async function copyViewportToClipboard(svgElement) {
+    try {
+        if (!navigator.clipboard || !window.ClipboardItem) {
+            alert("Trình duyệt của bạn không hỗ trợ tính năng sao chép ảnh trực tiếp.");
+            return;
+        }
+
+        // Lấy chính xác kích thước vùng hiển thị hiện tại của thẻ SVG trên giao diện
+        const width = svgElement.clientWidth || svgElement.getBoundingClientRect().width || 800;
+        const height = svgElement.clientHeight || svgElement.getBoundingClientRect().height || 600;
+
+        // Cập nhật lại width/height vào attribute của SVG nếu chưa có để quá trình serialize không bị lỗi co giãn
+        svgElement.setAttribute('width', width);
+        svgElement.setAttribute('height', height);
+
+        // Hệ số phóng để đạt chuẩn 200 PPI (Mặc định web là 96 PPI => hệ số ≈ 2.0833)
+        const ppiRatio = 200 / 96;
+        const canvasWidth = Math.round(width * ppiRatio);
+        const canvasHeight = Math.round(height * ppiRatio);
+
+        // Serialize nội dung SVG hiện tại thành chuỗi XML
+        const svgString = new XMLSerializer().serializeToString(svgElement);
+        const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const URL = window.URL || window.webkitURL || window;
+        const blobUrl = URL.createObjectURL(svgBlob);
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = blobUrl;
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+        const ctx = canvas.getContext('2d');
+
+        // Phủ nền trắng tinh khiết cho khung hình đồ thị
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+        // Scale context theo tỉ lệ 200 PPI để ảnh sắc nét
+        ctx.scale(ppiRatio, ppiRatio);
+        ctx.drawImage(img, 0, 0, width, height);
+
+        URL.revokeObjectURL(blobUrl);
+
+        // Đưa ảnh vào clipboard
+        canvas.toBlob(async (blob) => {
+            try {
+                const item = new ClipboardItem({ 'image/png': blob });
+                await navigator.clipboard.write([item]);
+                showCopyNotification("Đã copy khung hình mặt phẳng (200 PPI) vào bộ nhớ tạm!");
+            } catch (err) {
+                console.error("Lỗi khi ghi vào clipboard:", err);
+                alert("Không thể sao chép ảnh vào clipboard. Vui lòng cấp quyền cho trình duyệt.");
+            }
+        }, 'image/png');
+
+    } catch (error) {
+        console.error("Lỗi xuất ảnh:", error);
+        alert("Đã xảy ra lỗi khi tạo ảnh đồ thị.");
+    }
+}
+
+// Hàm phụ trợ hiển thị thông báo nhẹ trên giao diện
+function showCopyNotification(message) {
+    let notif = document.getElementById('copy-notification');
+    if (!notif) {
+        notif = document.createElement('div');
+        notif.id = 'copy-notification';
+        notif.style.cssText = `
+            position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: white;
+            padding: 10px 20px; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 9999; font-size: 14px; transition: opacity 0.3s ease;
+        `;
+        document.body.appendChild(notif);
+    }
+    notif.textContent = message;
+    notif.style.opacity = '1';
+    setTimeout(() => {
+        notif.style.opacity = '0';
+    }, 2500);
+}

@@ -20,10 +20,10 @@ export function createCoordinateSystem(svgElement) {
     const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     defs.innerHTML = `
         <marker id="arrow-x" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b"/>
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#000"/>
         </marker>
         <marker id="arrow-y" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 2 L 10 5 L 0 8 z" fill="#64748b"/>
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="#000"/>
         </marker>
     `;
     svgElement.appendChild(defs);
@@ -237,8 +237,8 @@ export function drawAxes(group, viewState, unitMode) {
                 const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 text.setAttribute('x', pixelX);
                 text.setAttribute('y', origin.y + 20);
-                text.setAttribute('fill', '#64748b');
-                text.setAttribute('font-size', '16');
+                text.setAttribute('fill', '#000');
+                text.setAttribute('font-size', '18');
                 text.setAttribute('text-anchor', 'middle');
                 text.textContent = Math.round(mathX);
                 group.appendChild(text);
@@ -253,8 +253,8 @@ export function drawAxes(group, viewState, unitMode) {
                         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         text.setAttribute('x', pixelX);
                         text.setAttribute('y', origin.y + 20);
-                        text.setAttribute('fill', '#64748b');
-                        text.setAttribute('font-size', '20');
+                        text.setAttribute('fill', '#000');
+                        text.setAttribute('font-size', '16');
                         text.setAttribute('text-anchor', 'middle');
                         const val = stepK / 4;
                         text.textContent = val === 1 ? 'π' : val === -1 ? '-π' : `${val}π`;
@@ -274,7 +274,7 @@ export function drawAxes(group, viewState, unitMode) {
                         const textTop = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         textTop.setAttribute('x', '0');
                         textTop.setAttribute('y', '-3');
-                        textTop.setAttribute('fill', '#64748b');
+                        textTop.setAttribute('fill', '#000');
                         textTop.setAttribute('font-size', '16');
                         textTop.setAttribute('text-anchor', 'middle');
                         textTop.textContent = Math.abs(num) === 1 ? (num < 0 ? '-π' : 'π') : `${num}π`;
@@ -285,14 +285,14 @@ export function drawAxes(group, viewState, unitMode) {
                         line.setAttribute('y1', '0');
                         line.setAttribute('x2', '9');
                         line.setAttribute('y2', '0');
-                        line.setAttribute('stroke', '#64748b');
+                        line.setAttribute('stroke', '#000');
                         line.setAttribute('stroke-width', '1');
 
                         // Mẫu số
                         const textBottom = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         textBottom.setAttribute('x', '0');
                         textBottom.setAttribute('y', '10');
-                        textBottom.setAttribute('fill', '#64748b');
+                        textBottom.setAttribute('fill', '#000');
                         textBottom.setAttribute('font-size', '16');
                         textBottom.setAttribute('text-anchor', 'middle');
                         textBottom.textContent = `${den}`;
@@ -354,6 +354,7 @@ export function drawAsymptotes(group, compiledExpr, domain, viewState) {
  * @param {Object} viewState - Khung nhìn
  */
 export function drawGraphCurve(group, compiledExpr, domain, viewState, color = '#2563eb') {
+    
     const { start, end } = domain;
     const step = 0.02;
 
